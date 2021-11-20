@@ -5,6 +5,5 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
-
 /app/vendor
 /app/var
