@@ -1,0 +1,10 @@
+.idea/
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+
+/app/vendor
+/app/var
