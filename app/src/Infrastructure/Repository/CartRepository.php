@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\Repository;
 
-use App\Entity\CartProduct;
+use App\Domain\Entity\Cart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method CartProduct|null find($id, $lockMode = null, $lockVersion = null)
- * @method CartProduct|null findOneBy(array $criteria, array $orderBy = null)
- * @method CartProduct[]    findAll()
- * @method CartProduct[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Cart|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Cart|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Cart[]    findAll()
+ * @method Cart[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CartProductRepository extends ServiceEntityRepository
+class CartRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CartProduct::class);
+        parent::__construct($registry, Cart::class);
     }
 
     // /**
-    //  * @return CartProduct[] Returns an array of CartProduct objects
+    //  * @return Cart[] Returns an array of Cart objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CartProductRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CartProduct
+    public function findOneBySomeField($value): ?Cart
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

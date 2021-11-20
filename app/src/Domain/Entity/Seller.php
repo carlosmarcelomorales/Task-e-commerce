@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Entity;
 
-use App\Repository\CartRepository;
+use App\Repository\SellerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CartRepository::class)
+ * @ORM\Entity(repositoryClass=SellerRepository::class)
  */
-class Cart
+class Seller
 {
     /**
      * @ORM\Id
@@ -20,20 +20,19 @@ class Cart
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="carts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
-    private $user;
+    private $name;
 
     /**
-     * @ORM\OneToMany (targetEntity=CartProduct::class, mappedBy="carts")
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="sel�lerId")
      */
     private $products;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $payed;
+    private $valid;
 
     public function __construct()
     {
@@ -45,14 +44,14 @@ class Cart
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getName(): ?string
     {
-        return $this->user;
+        return $this->name;
     }
 
-    public function setUser(?User $user): self
+    public function setName(string $name): self
     {
-        $this->user = $user;
+        $this->name = $name;
 
         return $this;
     }
@@ -69,6 +68,7 @@ class Cart
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
+            $product->setSel�lerId($this);
         }
 
         return $this;
@@ -76,19 +76,24 @@ class Cart
 
     public function removeProduct(Product $product): self
     {
-        $this->products->removeElement($product);
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getSel�lerId() === $this) {
+                $product->setSel�lerId(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getPayed(): ?bool
+    public function getValid(): ?bool
     {
-        return $this->payed;
+        return $this->valid;
     }
 
-    public function setPayed(bool $payed): self
+    public function setValid(bool $valid): self
     {
-        $this->payed = $payed;
+        $this->valid = $valid;
 
         return $this;
     }

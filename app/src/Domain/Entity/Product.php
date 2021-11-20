@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
-class User
+class Product
 {
     /**
      * @ORM\Id
@@ -25,9 +25,20 @@ class User
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="userId")
+     * @ORM\ManyToOne(targetEntity=Seller::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $seller;
+
+    /**
+     * @ORM\OneToMany (targetEntity=CartProduct::class, mappedBy="products")
      */
     private $carts;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
 
     /**
      * @ORM\Column(type="boolean")
@@ -56,6 +67,18 @@ class User
         return $this;
     }
 
+    public function getSeller(): ?Seller
+    {
+        return $this->seller;
+    }
+
+    public function setSellerId(?Seller $seller): self
+    {
+        $this->seller = $seller;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Cart[]
      */
@@ -68,7 +91,7 @@ class User
     {
         if (!$this->carts->contains($cart)) {
             $this->carts[] = $cart;
-            $cart->setUserId($this);
+            $cart->addProduct($this);
         }
 
         return $this;
@@ -77,11 +100,20 @@ class User
     public function removeCart(Cart $cart): self
     {
         if ($this->carts->removeElement($cart)) {
-            // set the owning side to null (unless already changed)
-            if ($cart->getUserId() === $this) {
-                $cart->setUserId(null);
-            }
+            $cart->removeProduct($this);
         }
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
