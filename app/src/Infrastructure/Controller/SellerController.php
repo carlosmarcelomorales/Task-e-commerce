@@ -2,17 +2,38 @@
 
 namespace App\Infrastructure\Controller;
 
+use App\Application\Seller\Add\Query;
+use App\Application\Seller\Add\QueryHandler;
+use App\Domain\Shared\Exception\InvalidValueException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 class SellerController extends AbstractController
 {
-    public function add(): Response
+    public function add(Request $request, QueryHandler $useCase): Response
     {
+
+        $name = $request->get('name');
+
+        try {
+            $useCase(
+                new Query(
+                    (object)[
+                        'name' => $name
+                    ]
+                )
+            );
+        } catch (InvalidValueException $e) {
+            return $this->json([
+                'message' => 'error',
+                'status' =>  404
+            ]);
+        }
+
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/SellerController.php',
+            'message' => 'Seller created successfully!',
+            'status' => 200
         ]);
     }
 

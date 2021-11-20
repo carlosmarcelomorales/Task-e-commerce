@@ -2,13 +2,14 @@
 
 namespace App\Domain\Entity;
 
-use App\Repository\SellerRepository;
+use App\Infrastructure\Repository\SellerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=SellerRepository::class)
+ * @ORM\Table(name="seller")
  */
 class Seller
 {
@@ -25,7 +26,7 @@ class Seller
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="sel�lerId")
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="sellerId")
      */
     private $products;
 
@@ -34,8 +35,10 @@ class Seller
      */
     private $valid;
 
-    public function __construct()
+    public function __construct(string $name)
     {
+        $this->name = $name;
+        $this->valid = 1;
         $this->products = new ArrayCollection();
     }
 
@@ -68,7 +71,7 @@ class Seller
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->setSel�lerId($this);
+            $product->setSellerId($this);
         }
 
         return $this;
@@ -78,8 +81,8 @@ class Seller
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($product->getSel�lerId() === $this) {
-                $product->setSel�lerId(null);
+            if ($product->getSellerId() === $this) {
+                $product->setSellerId(null);
             }
         }
 
