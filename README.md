@@ -29,3 +29,9 @@ It is not necessary to develop a graphical interface.
 The test will be discussed together in the offices of Promofarma
 Enjoy Coding!
 When you are done pls ping me here: daniel.vaquero@promocionesfarma.com
+
+
+NOTES:
+
+At first I started planning the relationship between Product & Seller as a Many-To-Many, but then I simplified
+because I thought that it would have more sense to control de stock if the product belongs only to one seller.

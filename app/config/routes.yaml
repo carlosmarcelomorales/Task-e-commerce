@@ -1,3 +1,7 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+blog_list:
+  path: /seller
+  controller: App\Controller\SellerController:test

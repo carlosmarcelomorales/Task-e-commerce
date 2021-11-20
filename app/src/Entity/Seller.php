@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\SellerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass=SellerRepository::class)
  */
-class User
+class Seller
 {
     /**
      * @ORM\Id
@@ -25,9 +25,9 @@ class User
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="userId")
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="sel홯erId")
      */
-    private $carts;
+    private $products;
 
     /**
      * @ORM\Column(type="boolean")
@@ -36,7 +36,7 @@ class User
 
     public function __construct()
     {
-        $this->carts = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,29 +57,29 @@ class User
     }
 
     /**
-     * @return Collection|Cart[]
+     * @return Collection|Product[]
      */
-    public function getCarts(): Collection
+    public function getProducts(): Collection
     {
-        return $this->carts;
+        return $this->products;
     }
 
-    public function addCart(Cart $cart): self
+    public function addProduct(Product $product): self
     {
-        if (!$this->carts->contains($cart)) {
-            $this->carts[] = $cart;
-            $cart->setUserId($this);
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setSel홯erId($this);
         }
 
         return $this;
     }
 
-    public function removeCart(Cart $cart): self
+    public function removeProduct(Product $product): self
     {
-        if ($this->carts->removeElement($cart)) {
+        if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($cart->getUserId() === $this) {
-                $cart->setUserId(null);
+            if ($product->getSel홯erId() === $this) {
+                $product->setSel홯erId(null);
             }
         }
 
