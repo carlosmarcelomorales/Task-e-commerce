@@ -30,16 +30,11 @@ class CartProduct
      */
     private $product;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $amount;
 
-    public function __construct(Product $product, Cart $cart, int $amount)
+    public function __construct(Product $product, Cart $cart)
     {
         $this->product = $product;
         $this->cart = $cart;
-        $this->amount = $amount;
     }
 
     public function getId(): ?int
@@ -67,13 +62,4 @@ class CartProduct
         $this->product = $product;
     }
 
-    public function getAmount()
-    {
-        return $this->amount;
-    }
-
-    public function setAmount($amount): void
-    {
-        $this->amount = $amount;
-    }
 }

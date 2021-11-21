@@ -67,9 +67,9 @@ class Cart
         return $this->cartProduct;
     }
 
-    public function addProduct(Product $product, int $amount)
+    public function addProduct(Product $product)
     {
-        $this->cartProduct->add(new CartProduct($product, $this, $amount));
+        $this->cartProduct->add(new CartProduct($product));
     }
 
     public function removeProduct(Product $product): self

@@ -3,8 +3,6 @@
 namespace App\Application\Cart\Add;
 
 use App\Domain\Entity\Cart;
-use App\Domain\Entity\CartProduct;
-use App\Domain\Repository\CartProductRepositoryInterface;
 use App\Domain\Repository\CartRepositoryInterface;
 use App\Domain\Repository\ProductRepositoryInterface;
 use App\Domain\Repository\UserRepositoryInterface;
@@ -53,7 +51,7 @@ class QueryHandler
         $this->cartRepositoryInterface->add($cart);
         $product = $this->productRepositoryInterface->findById($query->getProductId());
 
-        $cart->addProduct($product, $query->getAmount());
+        $cart->addProduct($product);
 
         $this->cartRepositoryInterface->update($cart);
 
@@ -73,8 +71,5 @@ class QueryHandler
             throw new InvalidValueException('productId', 'Invalid value for productId');
         }
 
-        if (empty($query->getAmount()) || $query->getAmount() <= 0) {
-            throw new InvalidValueException('amount', 'Invalid value for amount');
-        }
     }
 }

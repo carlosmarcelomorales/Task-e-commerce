@@ -18,11 +18,6 @@ class Query extends AbstractQuery
         return $this->getData()->productId;
     }
 
-    public function getAmount() : int
-    {
-        return $this->getData()->amount;
-    }
-
     public function assertMandatoryAttributes()
     {
         if (empty($this->getData()->userId) || !is_int($this->getData()->userId)) {
@@ -31,10 +26,6 @@ class Query extends AbstractQuery
 
         if (empty($this->getData()->productId) || !is_int($this->getData()->productId)) {
             throw new InvalidValueException('productId', 'Incorrect value productId');
-        }
-
-        if (empty($this->getData()->amount) || !is_int($this->getData()->amount)) {
-            throw new InvalidValueException('amount', 'Incorrect value amount');
         }
     }
 }

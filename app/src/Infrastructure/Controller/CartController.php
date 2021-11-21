@@ -17,15 +17,13 @@ class CartController extends AbstractController
     {
         $userId = $request->get('userId');
         $productId = $request->get('productId');
-        $amount = $request->get('amount');
 
         try {
             $useCase(
                 new Query(
                     (object)[
                         'userId' => (int)$userId,
-                        'productId' => (int)$productId,
-                        'amount' => (int)$amount
+                        'productId' => (int)$productId
                     ]
                 )
             );

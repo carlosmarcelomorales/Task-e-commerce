@@ -37,3 +37,9 @@ NOTES:
 because I thought that it would have more sense to control de stock if the product belongs only to one seller.
 
 - If there is some error with the mysql container, add 127.0.0.1 mysql to the /etc/hosts
+
+- At first I decided to add a column Amount on the table cart_product to controll how many of the same product are on the
+cart, but at the end I decided to remove it and I will control it by the numbers of rows. So, if there are 2 of the same product,
+  the row will be duplicated. If I have more time I will improve this part.
+  
+
