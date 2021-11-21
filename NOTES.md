@@ -18,6 +18,11 @@ Things to improve:
 
 - All the tables has the column valid, which means if it's deleted or not. If I had more time, i would add this filter to
 every query, so that we can only use valid and working elements.
+  
+
+- Make more order on the structure of folders. Like on the Application folder, separate all the useCases from the fixtures,
+or Shared folder.
+  
 
 For using it correctly, please read the HOWTOUSE.md.
 
