@@ -40,7 +40,8 @@ class QueryHandler
         $product = new Product(
             $query->getName(),
             $query->getPrice(),
-            $seller
+            $seller,
+            $query->getAmount()
         );
 
         $this->productRepositoryInterface->add($product);
@@ -62,6 +63,10 @@ class QueryHandler
 
         if (empty($query->getPrice())) {
             throw new InvalidValueException('price', 'The price cant be empty!');
+        }
+
+        if (empty($query->getAmount()) || $query->getAmount() <= 0) {
+            throw new InvalidValueException('amount', 'The amount cant be lower or equal than 0!');
         }
     }
 }

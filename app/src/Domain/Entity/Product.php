@@ -41,16 +41,28 @@ class Product
     private $price;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $amount;
+
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $valid;
 
-    public function __construct(string $name, string $price, Seller $seller)
+    public function __construct(
+        string $name,
+        string $price,
+        Seller $seller,
+        int $amount
+    )
     {
 
         $this->name = $name;
         $this->price = $price;
         $this->seller = $seller;
+        $this->amount = $amount;
         $this->valid = 1;
         $this->carts = new ArrayCollection();
     }
@@ -133,5 +145,15 @@ class Product
         $this->valid = $valid;
 
         return $this;
+    }
+
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    public function setAmount($amount): void
+    {
+        $this->amount = $amount;
     }
 }

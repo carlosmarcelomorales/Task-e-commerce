@@ -23,6 +23,11 @@ class Query extends AbstractQuery
         return $this->getData()->price;
     }
 
+    public function getAmount() : string
+    {
+        return $this->getData()->amount;
+    }
+
     public function assertMandatoryAttributes()
     {
         if (empty($this->getData()->name)) {
@@ -35,6 +40,10 @@ class Query extends AbstractQuery
 
         if (empty($this->getData()->price) || !is_numeric($this->getData()->price)) {
             throw new InvalidValueException('price', 'Incorrect value for price');
+        }
+
+        if (empty($this->getData()->amount) || !is_numeric($this->getData()->amount)) {
+            throw new InvalidValueException('amount', 'Incorrect value for amount');
         }
     }
 }

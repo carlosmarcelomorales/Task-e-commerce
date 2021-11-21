@@ -20,6 +20,7 @@ class ProductController extends AbstractController
         $name = $request->get('name');
         $sellerId = $request->get('sellerId');
         $price = $request->get('price');
+        $amount = $request->get('amount');
 
         try {
             $useCase(
@@ -27,7 +28,8 @@ class ProductController extends AbstractController
                     (object)[
                         'name' => $name,
                         'sellerId' => (int)$sellerId,
-                        'price' => $price
+                        'price' => $price,
+                        'amount' => (int)$amount
                     ]
                 )
             );
