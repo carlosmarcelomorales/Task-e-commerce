@@ -5,6 +5,7 @@ namespace App\Infrastructure\Repository;
 use App\Domain\Entity\Product;
 use App\Domain\Repository\ProductRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -23,6 +24,23 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
     public function add(Product $product): void
     {
         $this->getEntityManager()->persist($product);
+        $this->getEntityManager()->flush();
+    }
+
+    public function findById(int $id): Product
+    {
+        $product = $this->find($id);
+
+        if (is_null($product)){
+            throw new EntityNotFoundException();
+        }
+
+        return $product;
+
+    }
+
+    public function update(Product $product): void
+    {
         $this->getEntityManager()->flush();
     }
 }

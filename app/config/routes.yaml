@@ -12,3 +12,8 @@ AddProduct:
   path: /product
   controller: App\Infrastructure\Controller\ProductController::add
   methods: POST
+
+DeleteProduct:
+  path: /product
+  controller: App\Infrastructure\Controller\ProductController::delete
+  methods: DELETE
