@@ -2,20 +2,21 @@
 
 ##INSTALLATION
 
-*Before starting, all the commands shown on this file should be executed from the root of the project*. 
-
-For installing the project correctly use this command: 
+For installing the project correctly use this command from the root of the project: 
 
 > make init
 
 Now, the project docker of the project is already running and ready to use. You can use 
 >docker-compose ps
 
-to check it.
+Once the project is started, we need to execute composer to install al the dependencies. For this, we will need to go to 
+the app folder:
 
-Now that the project is already running, we need to execute the migrations.
+>cd app && composer install
 
-> php app/bin/console doctrine:migrations:migrate
+Now that the project is already running, we need to execute the migrations. Also, we will need to run this on the app folder.
+
+> php bin/console doctrine:migrations:migrate
 
 This will create all the tables inside of our database shop. Now the project is ready to use!
 
