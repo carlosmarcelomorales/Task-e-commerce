@@ -6,6 +6,8 @@ use App\Application\Product\Add\Query;
 use App\Application\Product\Add\QueryHandler;
 use App\Application\Product\Delete\QueryHandler as DeleteQueryHandler;
 use App\Application\Product\Delete\Query as DeleteQuery;
+use App\Application\Product\ModifyAmount\QueryHandler as ModifyAmountQueryHandler;
+use App\Application\Product\ModifyAmount\Query as ModifyAmountQuery;
 use App\Domain\Shared\Exception\InvalidValueException;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,5 +71,35 @@ class ProductController extends AbstractController
             'message' => 'Product deleted successfully!',
             'status' => 200
         ]);
+    }
+
+    public function modifyAmount(Request $request, ModifyAmountQueryHandler $useCase) : Response
+    {
+        $productId = $request->get('productId');
+        $increase = boolval($request->get('increase'));
+        $units = $request->get('units');
+
+        try {
+            $useCaseResponse = $useCase(
+                new ModifyAmountQuery(
+                    (object)[
+                        'productId' => (int)$productId,
+                        'increase' => $increase,
+                        'units' => (int)$units
+                    ]
+                )
+            );
+        } catch (InvalidValueException|EntityNotFoundException $e) {
+            return $this->json([
+                'message' => 'error',
+                'status' =>  404
+            ]);
+        }
+
+        return $this->json([
+            'message' => 'Now we have ' .$useCaseResponse->getAmount() . ' units',
+            'status' => 200
+        ]);
+
     }
 }

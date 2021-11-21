@@ -38,5 +38,10 @@ GetTotalAmountFromCart:
   controller: App\Infrastructure\Controller\CartController::getAmount
   methods: GET
 
+ModifyAmountProduct:
+  path: /product/modifyAmount
+  controller: App\Infrastructure\Controller\ProductController::modifyAmount
+  methods: PUT
+
 
 
