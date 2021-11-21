@@ -17,3 +17,8 @@ DeleteProduct:
   path: /product
   controller: App\Infrastructure\Controller\ProductController::delete
   methods: DELETE
+
+AddUser:
+  path: /user
+  controller: App\Infrastructure\Controller\UserController::add
+  methods: POST

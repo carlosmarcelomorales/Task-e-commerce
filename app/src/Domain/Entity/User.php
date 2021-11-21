@@ -34,8 +34,10 @@ class User
      */
     private $valid;
 
-    public function __construct()
+    public function __construct(string $name)
     {
+        $this->name = $name;
+        $this->valid = 1;
         $this->carts = new ArrayCollection();
     }
 
