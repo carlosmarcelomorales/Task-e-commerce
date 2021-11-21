@@ -7,3 +7,8 @@ DeleteSeller:
   path: /seller
   controller: App\Infrastructure\Controller\SellerController::delete
   methods: DELETE
+
+AddProduct:
+  path: /product
+  controller: App\Infrastructure\Controller\ProductController::add
+  methods: POST

@@ -36,7 +36,7 @@ class QueryHandler
      */
     public function validateLogic(Query $query)
     {
-        if (empty($query)) {
+        if (empty($query->getName())) {
             throw new InvalidValueException('name', 'The name cant be empty!');
         }
     }

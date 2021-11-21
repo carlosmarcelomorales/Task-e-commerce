@@ -45,8 +45,13 @@ class Product
      */
     private $valid;
 
-    public function __construct()
+    public function __construct(string $name, string $price, Seller $seller)
     {
+
+        $this->name = $name;
+        $this->price = $price;
+        $this->seller = $seller;
+        $this->valid = 1;
         $this->carts = new ArrayCollection();
     }
 
