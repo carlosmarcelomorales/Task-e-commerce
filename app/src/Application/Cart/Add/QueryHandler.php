@@ -7,6 +7,7 @@ use App\Domain\Repository\CartRepositoryInterface;
 use App\Domain\Repository\ProductRepositoryInterface;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Shared\Exception\InvalidValueException;
+use App\Domain\Shared\Exception\NotEnoughStockException;
 use Doctrine\ORM\EntityNotFoundException;
 
 class QueryHandler
@@ -46,14 +47,20 @@ class QueryHandler
             $cart = $this->cartRepositoryInterface->findByIdUser($query->getUserId());
         } catch (EntityNotFoundException $e) {
             $cart = new Cart($user);
+            $this->cartRepositoryInterface->add($cart);
         }
 
-        $this->cartRepositoryInterface->add($cart);
         $product = $this->productRepositoryInterface->findById($query->getProductId());
 
-        $cart->addProduct($product);
+        if ($product->getAmount() > 0) {
+            $cart->addProduct($product);
+            $this->cartRepositoryInterface->update($cart);
 
-        $this->cartRepositoryInterface->update($cart);
+            $product->setAmount($product->getAmount() - 1);
+            $this->productRepositoryInterface->update($product);
+        }else {
+            throw new NotEnoughStockException('This product has not enough stock');
+        }
 
     }
 
