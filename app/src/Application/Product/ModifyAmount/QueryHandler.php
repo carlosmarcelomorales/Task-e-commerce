@@ -27,10 +27,13 @@ class QueryHandler
         $product = $this->productRepositoryInterface->findById($query->getProductId());
 
         if ($query->getIsIncreasing()) {
-            $product->setAmount($product->getAmount() + $query->getUnits());
+            $amount = $product->getAmount() + $query->getUnits();
+            $product->setAmount($amount);
             $product->setValid(1);
         } else {
-            $product->setAmount($product->getAmount() - $query->getUnits());
+            $amount = $product->getAmount() - $query->getUnits();
+
+            $product->setAmount($amount);
             if ($product->getAmount() <= 0) {
                 $product->setAmount(0);
                 $product->setValid(0);
@@ -39,7 +42,7 @@ class QueryHandler
 
         $this->productRepositoryInterface->update($product);
 
-        return new Response($product->getAmount());
+        return new Response($amount);
     }
 
     /**
