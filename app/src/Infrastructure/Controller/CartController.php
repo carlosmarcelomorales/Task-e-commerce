@@ -11,6 +11,7 @@ use App\Application\Cart\GetAmount\Query as GetAmountQuery;
 use App\Application\Cart\Confirm\QueryHandler as ConfirmCommandHandler;
 use App\Application\Cart\Confirm\Query as ConfirmQuery;
 use App\Domain\Shared\Exception\InvalidValueException;
+use App\Domain\Shared\Exception\NotEnoughStockException;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +34,7 @@ class CartController extends AbstractController
                     ]
                 )
             );
-        } catch (InvalidValueException|EntityNotFoundException $e) {
+        } catch (InvalidValueException|EntityNotFoundException|NotEnoughStockException $e) {
             return $this->json([
                 'message' => 'error',
                 'status' =>  404
