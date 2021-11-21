@@ -74,3 +74,12 @@ For confirming the cart and create the final order, we need to use the request: 
 default we will be using the user with id = 1. So, if now we execute it we will get a message saying that our order
 is created. Now if we check the table order we can see that we have one order linked to the cart that we had and also
 with the final price. 
+
+
+# Testing
+
+For testing the application, we need to use the next command:
+
+> cd app && php bin/phpunit
+
+I added a few test, should be good to add more.
