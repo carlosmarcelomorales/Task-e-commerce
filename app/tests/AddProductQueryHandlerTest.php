@@ -65,4 +65,12 @@ class AddProductQueryHandlerTest extends TestCase
         $query = new Query($this->data);
     }
 
+    public function testQueryWithIncorrectPrice()
+    {
+        $this->data->price = 0;
+
+        $this->expectException(InvalidValueException::class);
+        $query = new Query($this->data);
+    }
+
 }
