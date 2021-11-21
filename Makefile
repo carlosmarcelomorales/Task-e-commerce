@@ -34,4 +34,5 @@ interactive:
 log:
 	-@docker-compose logs
 
+init: build start
 

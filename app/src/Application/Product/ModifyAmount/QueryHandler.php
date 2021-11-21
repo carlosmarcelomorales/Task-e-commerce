@@ -28,6 +28,7 @@ class QueryHandler
 
         if ($query->getIsIncreasing()) {
             $product->setAmount($product->getAmount() + $query->getUnits());
+            $product->setValid(1);
         } else {
             $product->setAmount($product->getAmount() - $query->getUnits());
             if ($product->getAmount() <= 0) {

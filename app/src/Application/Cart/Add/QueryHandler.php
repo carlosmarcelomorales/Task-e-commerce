@@ -56,7 +56,14 @@ class QueryHandler
             $cart->addProduct($product);
             $this->cartRepositoryInterface->update($cart);
 
-            $product->setAmount($product->getAmount() - 1);
+
+            $productNewAmount = $product->getAmount() - 1;
+            $product->setAmount($productNewAmount);
+
+            if ($productNewAmount <= 0) {
+                $product->setValid(0);
+            }
+
             $this->productRepositoryInterface->update($product);
         }else {
             throw new NotEnoughStockException('This product has not enough stock');
