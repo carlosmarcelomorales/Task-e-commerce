@@ -33,5 +33,7 @@ When you are done pls ping me here: daniel.vaquero@promocionesfarma.com
 
 NOTES:
 
-At first I started planning the relationship between Product & Seller as a Many-To-Many, but then I simplified
+- At first I started planning the relationship between Product & Seller as a Many-To-Many, but then I simplified
 because I thought that it would have more sense to control de stock if the product belongs only to one seller.
+
+- If there is some error with the mysql container, add 127.0.0.1 mysql to the /etc/hosts

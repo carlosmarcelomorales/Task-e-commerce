@@ -23,7 +23,7 @@ services:
       - "./app:/app"
     command: install
 
-  mysqldb:
+  mysql:
     image: mysql:${MYSQL_VERSION}
     container_name: ${MYSQL_HOST}
     restart: always
