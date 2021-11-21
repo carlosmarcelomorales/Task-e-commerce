@@ -1,3 +1,5 @@
+
+#SELLER
 AddSeller:
   path: /seller
   controller: App\Infrastructure\Controller\SellerController::add
@@ -8,6 +10,7 @@ DeleteSeller:
   controller: App\Infrastructure\Controller\SellerController::delete
   methods: DELETE
 
+#PRODUCT
 AddProduct:
   path: /product
   controller: App\Infrastructure\Controller\ProductController::add
@@ -18,11 +21,18 @@ DeleteProduct:
   controller: App\Infrastructure\Controller\ProductController::delete
   methods: DELETE
 
+ModifyAmountProduct:
+  path: /product/modifyAmount
+  controller: App\Infrastructure\Controller\ProductController::modifyAmount
+  methods: PUT
+
+#USER
 AddUser:
   path: /user
   controller: App\Infrastructure\Controller\UserController::add
   methods: POST
 
+#CART
 AddToCart:
   path: /cart
   controller: App\Infrastructure\Controller\CartController::add
@@ -38,10 +48,9 @@ GetTotalAmountFromCart:
   controller: App\Infrastructure\Controller\CartController::getAmount
   methods: GET
 
-ModifyAmountProduct:
-  path: /product/modifyAmount
-  controller: App\Infrastructure\Controller\ProductController::modifyAmount
-  methods: PUT
-
+ConfirmCart:
+  path: /cart/confirm
+  controller: App\Infrastructure\Controller\CartController::confirm
+  methods: GET
 
 

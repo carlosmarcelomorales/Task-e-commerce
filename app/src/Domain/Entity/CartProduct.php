@@ -2,7 +2,7 @@
 
 namespace App\Domain\Entity;
 
-use App\Repository\CartProductRepository;
+use App\Infrastructure\Repository\CartProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

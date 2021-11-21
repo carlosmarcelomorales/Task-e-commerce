@@ -8,6 +8,8 @@ use App\Application\Cart\Delete\QueryHandler as DeleteQueryHandler;
 use App\Application\Cart\Delete\Query as DeleteQuery;
 use App\Application\Cart\GetAmount\QueryHandler as GetAmountQueryHandler;
 use App\Application\Cart\GetAmount\Query as GetAmountQuery;
+use App\Application\Cart\Confirm\QueryHandler as ConfirmCommandHandler;
+use App\Application\Cart\Confirm\Query as ConfirmQuery;
 use App\Domain\Shared\Exception\InvalidValueException;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -96,4 +98,43 @@ class CartController extends AbstractController
         ]);
     }
 
+    public function confirm(
+        Request $request,
+        ConfirmCommandHandler $useCase,
+        GetAmountQueryHandler $useCaseGetAmount
+    ) : Response
+    {
+        $userId = $request->get('userId');
+
+        try {
+            $useCaseResponseAmount = $useCaseGetAmount(
+                new GetAmountQuery(
+                    (object)[
+                        'userId' => (int)$userId,
+                    ]
+                )
+            );
+        } catch (InvalidValueException|EntityNotFoundException $e) {
+            return $this->json([
+                'message' => 'error',
+                'status' =>  404
+            ]);
+        }
+
+        try {
+            $useCaseResponse = $useCase(
+                new ConfirmQuery(
+                    (object)[
+                        'userId' => (int)$userId,
+                        'price' => (int)$useCaseResponseAmount->getPrice()
+                    ]
+                )
+            );
+        } catch (InvalidValueException|EntityNotFoundException $e) {
+            return $this->json([
+                'message' => 'error',
+                'status' =>  404
+            ]);
+        }
+    }
 }

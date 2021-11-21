@@ -2,7 +2,7 @@
 
 namespace App\Domain\Entity;
 
-use App\Repository\CartRepository;
+use App\Infrastructure\Repository\CartRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
