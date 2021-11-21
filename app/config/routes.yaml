@@ -33,3 +33,10 @@ DeleteProductFromCart:
   controller: App\Infrastructure\Controller\CartController::delete
   methods: DELETE
 
+GetTotalAmountFromCart:
+  path: /cart
+  controller: App\Infrastructure\Controller\CartController::getAmount
+  methods: GET
+
+
+
