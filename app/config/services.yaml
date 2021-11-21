@@ -24,9 +24,6 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-#    sellerController:
-#        class: App\Infrastructure\Controller\SellerController
-#        arguments
-    sellerRepository:
-        class: App\Infrastructure\Repository\SellerRespository
-        arguments: [ '@doctrine.orm.entity_manager' ]
+#    sellerRepository:
+#        class: App\Infrastructure\Repository\SellerRespository
+#        arguments: [ '@doctrine.orm.entity_manager' ]

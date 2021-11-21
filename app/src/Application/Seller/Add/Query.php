@@ -8,8 +8,6 @@ use App\Domain\Shared\Exception\InvalidValueException;
 
 final class Query extends AbstractQuery
 {
-    private $name;
-
     public function getName(): string
     {
         return $this->getData()->name;

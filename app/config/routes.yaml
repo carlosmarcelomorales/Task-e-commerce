@@ -1,4 +1,9 @@
-blog_list:
+AddSeller:
   path: /seller
   controller: App\Infrastructure\Controller\SellerController::add
-#  methods: POST
+  methods: POST
+
+DeleteSeller:
+  path: /seller
+  controller: App\Infrastructure\Controller\SellerController::delete
+  methods: DELETE
