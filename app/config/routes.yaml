@@ -28,3 +28,8 @@ AddToCart:
   controller: App\Infrastructure\Controller\CartController::add
   methods: POST
 
+DeleteProductFromCart:
+  path: /cart
+  controller: App\Infrastructure\Controller\CartController::delete
+  methods: DELETE
+

@@ -5,6 +5,7 @@ namespace App\Infrastructure\Repository;
 use App\Domain\Entity\Cart;
 use App\Domain\Repository\CartRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,6 +41,11 @@ class CartRepository extends ServiceEntityRepository implements CartRepositoryIn
             ->where('c.user = :userId')
             ->setParameter('userId', $userId);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        $cart = $qb->getQuery()->getOneOrNullResult();
+
+        if (is_null($cart)) {
+            throw new EntityNotFoundException();
+        }
+        return $cart;
     }
 }

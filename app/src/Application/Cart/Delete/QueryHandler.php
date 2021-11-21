@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Application\Cart\Add;
+namespace App\Application\Cart\Delete;
 
-use App\Domain\Entity\Cart;
 use App\Domain\Repository\CartRepositoryInterface;
 use App\Domain\Repository\ProductRepositoryInterface;
-use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Shared\Exception\InvalidValueException;
 use Doctrine\ORM\EntityNotFoundException;
 
@@ -14,44 +12,35 @@ class QueryHandler
     /** @var ProductRepositoryInterface */
     private $productRepositoryInterface;
 
-    /** @var UserRepositoryInterface */
-    private $userRepositoryInterface;
-
     /** @var CartRepositoryInterface */
     private $cartRepositoryInterface;
 
     public function __construct(
         ProductRepositoryInterface $productRepositoryInterface,
-        UserRepositoryInterface $userRepositoryInterface,
         CartRepositoryInterface $cartRepositoryInterface
     )
     {
         $this->productRepositoryInterface = $productRepositoryInterface;
-        $this->userRepositoryInterface = $userRepositoryInterface;
         $this->cartRepositoryInterface = $cartRepositoryInterface;
     }
 
     /**
      * @param Query $query
      * @throws InvalidValueException
-     * @throws EntityNotFoundException
      */
     public function __invoke(Query $query)
     {
         $this->validateLogic($query);
 
-        $user = $this->userRepositoryInterface->findById($query->getUserId());
-
-        try{
+        try {
             $cart = $this->cartRepositoryInterface->findByIdUser($query->getUserId());
         } catch (EntityNotFoundException $e) {
-            $cart = new Cart($user);
+            throw new EntityNotFoundException();
         }
 
-        $this->cartRepositoryInterface->add($cart);
         $product = $this->productRepositoryInterface->findById($query->getProductId());
 
-        $cart->addProduct($product);
+        $cart->removeProduct($product);
 
         $this->cartRepositoryInterface->update($cart);
 
