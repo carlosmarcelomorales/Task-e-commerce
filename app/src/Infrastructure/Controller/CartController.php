@@ -136,5 +136,10 @@ class CartController extends AbstractController
                 'status' =>  404
             ]);
         }
+
+        return $this->json([
+            'message' => 'Your cart is confirmed and your order has been created!',
+            'status' => 200
+        ]);
     }
 }

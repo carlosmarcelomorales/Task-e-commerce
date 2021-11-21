@@ -43,6 +43,7 @@ class QueryHandler
         $order = new Order($query->getPrice(), $cart);
 
         $this->orderRepositoryInterface->add($order);
+
     }
 
     /**
