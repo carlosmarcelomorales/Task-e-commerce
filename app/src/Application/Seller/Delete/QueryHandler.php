@@ -4,6 +4,7 @@ namespace App\Application\Seller\Delete;
 
 use App\Domain\Repository\SellerRepositoryInterface;
 use App\Domain\Shared\Exception\InvalidValueException;
+use Doctrine\ORM\EntityNotFoundException;
 
 class QueryHandler
 {
@@ -15,6 +16,11 @@ class QueryHandler
         $this->sellerRepository = $sellerRepository;
     }
 
+    /**
+     * @param Query $query
+     * @throws InvalidValueException
+     * @throws EntityNotFoundException
+     */
     public function __invoke(Query $query)
     {
         $this->validateLogic($query);

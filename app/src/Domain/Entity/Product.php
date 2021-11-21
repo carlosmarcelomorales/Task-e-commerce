@@ -33,7 +33,7 @@ class Product
     /**
      * @ORM\OneToMany (targetEntity=CartProduct::class, mappedBy="products")
      */
-    private $carts;
+    private $cart;
 
     /**
      * @ORM\Column(type="float")

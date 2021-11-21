@@ -7,6 +7,7 @@ use App\Application\Seller\Add\QueryHandler;
 use App\Application\Seller\Delete\Query as DeleteQuery;
 use App\Application\Seller\Delete\QueryHandler as DeleteQueryHandler;
 use App\Domain\Shared\Exception\InvalidValueException;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +52,7 @@ class SellerController extends AbstractController
                     ]
                 )
             );
-        } catch (InvalidValueException $e) {
+        } catch (InvalidValueException|EntityNotFoundException $e) {
             return $this->json([
                 'message' => 'error',
                 'status' =>  404

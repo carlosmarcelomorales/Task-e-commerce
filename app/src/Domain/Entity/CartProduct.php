@@ -19,13 +19,13 @@ class CartProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Cart", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="Cart", inversedBy="product")
      * @ORM\JoinColumn(nullable=false)
      */
     private $cart;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="carts")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="cart")
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;
@@ -34,6 +34,13 @@ class CartProduct
      * @ORM\Column(type="integer")
      */
     private $amount;
+
+    public function __construct(Product $product, Cart $cart, int $amount)
+    {
+        $this->product = $product;
+        $this->cart = $cart;
+        $this->amount = $amount;
+    }
 
     public function getId(): ?int
     {

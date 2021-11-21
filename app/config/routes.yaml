@@ -22,3 +22,9 @@ AddUser:
   path: /user
   controller: App\Infrastructure\Controller\UserController::add
   methods: POST
+
+AddToCart:
+  path: /cart
+  controller: App\Infrastructure\Controller\CartController::add
+  methods: POST
+

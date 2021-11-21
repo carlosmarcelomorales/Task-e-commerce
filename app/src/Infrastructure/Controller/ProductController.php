@@ -7,6 +7,7 @@ use App\Application\Product\Add\QueryHandler;
 use App\Application\Product\Delete\QueryHandler as DeleteQueryHandler;
 use App\Application\Product\Delete\Query as DeleteQuery;
 use App\Domain\Shared\Exception\InvalidValueException;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,7 @@ class ProductController extends AbstractController
                     ]
                 )
             );
-        } catch (InvalidValueException $e) {
+        } catch (InvalidValueException|EntityNotFoundException $e) {
             return $this->json([
                 'message' => 'error',
                 'status' =>  404
@@ -55,7 +56,7 @@ class ProductController extends AbstractController
                     ]
                 )
             );
-        } catch (InvalidValueException $e) {
+        } catch (InvalidValueException|EntityNotFoundException $e) {
             return $this->json([
                 'message' => 'error',
                 'status' =>  404

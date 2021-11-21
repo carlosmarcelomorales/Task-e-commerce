@@ -6,6 +6,7 @@ use App\Domain\Entity\Product;
 use App\Domain\Repository\ProductRepositoryInterface;
 use App\Domain\Repository\SellerRepositoryInterface;
 use App\Domain\Shared\Exception\InvalidValueException;
+use Doctrine\ORM\EntityNotFoundException;
 
 class QueryHandler
 {
@@ -28,6 +29,7 @@ class QueryHandler
     /**
      * @param Query $query
      * @throws InvalidValueException
+     * @throws EntityNotFoundException
      */
     public function __invoke(Query $query)
     {

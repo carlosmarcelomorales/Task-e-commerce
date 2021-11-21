@@ -20,24 +20,26 @@ class Cart
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="carts")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="carts", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\OneToMany (targetEntity=CartProduct::class, mappedBy="carts")
+     * @ORM\OneToMany (targetEntity=CartProduct::class, mappedBy="cart", cascade={"persist"})
      */
-    private $products;
+    private $cartProduct;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $payed;
 
-    public function __construct()
+    public function __construct(User $user)
     {
-        $this->products = new ArrayCollection();
+        $this->user = $user;
+        $this->payed = 0;
+        $this->cartProduct = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,23 +62,19 @@ class Cart
     /**
      * @return Collection|Product[]
      */
-    public function getProducts(): Collection
+    public function getCartProduct(): Collection
     {
-        return $this->products;
+        return $this->cartProduct;
     }
 
-    public function addProduct(Product $product): self
+    public function addProduct(Product $product, int $amount)
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-        }
-
-        return $this;
+        $this->cartProduct->add(new CartProduct($product, $this, $amount));
     }
 
     public function removeProduct(Product $product): self
     {
-        $this->products->removeElement($product);
+        $this->cartProduct->removeElement($product);
 
         return $this;
     }

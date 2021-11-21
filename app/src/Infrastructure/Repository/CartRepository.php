@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\Cart;
+use App\Domain\Repository\CartRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,39 +13,33 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Cart[]    findAll()
  * @method Cart[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CartRepository extends ServiceEntityRepository
+class CartRepository extends ServiceEntityRepository implements CartRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Cart::class);
     }
 
-    // /**
-    //  * @return Cart[] Returns an array of Cart objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function add(Cart $cart): void
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $this->getEntityManager()->persist($cart);
+        $this->getEntityManager()->flush();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Cart
+    public function update(Cart $cart): void
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $this->getEntityManager()->persist($cart);
+        $this->getEntityManager()->flush();
     }
-    */
+
+    public function findByIdUser(int $userId): ?Cart
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('c')
+            ->where('c.user = :userId')
+            ->setParameter('userId', $userId);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

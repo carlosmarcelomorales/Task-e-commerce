@@ -4,6 +4,7 @@ namespace App\Application\Product\Delete;
 
 use App\Domain\Repository\ProductRepositoryInterface;
 use App\Domain\Shared\Exception\InvalidValueException;
+use Doctrine\ORM\EntityNotFoundException;
 
 class QueryHandler
 {
@@ -20,6 +21,7 @@ class QueryHandler
     /**
      * @param Query $query
      * @throws InvalidValueException
+     * @throws EntityNotFoundException
      */
     public function __invoke(Query $query)
     {
