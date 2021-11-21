@@ -28,6 +28,7 @@ class QueryHandler
         $seller = $this->sellerRepository->findById($query->getId());
 
         $seller->setValid(0);
+
         $this->sellerRepository->update($seller);
     }
 
