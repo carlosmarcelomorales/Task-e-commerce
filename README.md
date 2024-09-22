@@ -2,9 +2,9 @@
 
 
 # Challenge_
-Promofarma Code Challenge
-Promofarma Shopping Cart & Orders
-Promofarma is a marketplace that operates with different sellers that offer their products to be sold from Promofarma. 
+Code Challenge
+Shopping Cart & Orders
+is a marketplace that operates with different sellers that offer their products to be sold from X. 
 This implies that a product can be sold by one or several sellers at different prices. 
 Therefore, in our system we have to trace the selection of the product-seller once the user adds a product to the Shopping Cart and once the transaction ends.
 ## Implement Shopping Cart API:
@@ -26,6 +26,3 @@ Estimated completion time: 2 day.
 The implementation of the exercise is free.
 The details of implementation and the approach taken will be evaluated.
 It is not necessary to develop a graphical interface.
-The test will be discussed together in the offices of Promofarma
-Enjoy Coding!
-When you are done pls ping me here: daniel.vaquero@promocionesfarma.com
